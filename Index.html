@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CMDI Digital Student Clearance</title>
+<style>
+:root{--bg:#f4f5f2;--card:#fff;--ink:#16221d;--mute:#5c6a63;--line:#dde2dc;--accent:#1d5c46;--ok:#1d7a4f;--okbg:#e2f3ea;--bad:#b3261e;--badbg:#fbe7e5;--wait:#8a5a00;--waitbg:#fcf0d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121815;--card:#1b2420;--ink:#e8efea;--mute:#9aaaa1;--line:#2c3832;--accent:#5fc59b;--ok:#6fd3a0;--okbg:#17332a;--bad:#ff8a80;--badbg:#3b1c1a;--wait:#f0c264;--waitbg:#37290c}}
+:root[data-theme="dark"]{--bg:#121815;--card:#1b2420;--ink:#e8efea;--mute:#9aaaa1;--line:#2c3832;--accent:#5fc59b;--ok:#6fd3a0;--okbg:#17332a;--bad:#ff8a80;--badbg:#3b1c1a;--wait:#f0c264;--waitbg:#37290c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,.num{font-family:Georgia,"Iowan Old Style",serif;font-weight:700;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:21px;line-height:1.2}h2{font-size:17px;margin:22px 0 10px}
+.mute{color:var(--mute);font-size:13px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
+nav{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:14px}
+nav button{background:none;border:0;padding:10px 14px;font:inherit;color:var(--mute);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+nav button.on{color:var(--ink);border-color:var(--accent);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(min-width:640px){.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px}
+.grid .card{margin:0}.stat .num{font-size:32px;line-height:1.1;display:block}
+.bar{height:9px;background:var(--line);border-radius:5px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent)}
+.brow{margin-bottom:12px}.brow>div:first-child{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
+.stamp{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border:1.5px solid currentColor;border-radius:4px;transform:rotate(-2deg);white-space:nowrap}
+.s-ok{color:var(--ok);background:var(--okbg)}.s-bad{color:var(--bad);background:var(--badbg)}.s-wait{color:var(--wait);background:var(--waitbg)}
+input,select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-width:0;width:100%}
+button.b{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 12px}
+button.p{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}button.ok{color:var(--ok)}button.no{color:var(--bad)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.act{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.act input{flex:1;min-width:150px;width:auto}
+.rem{font-size:13px;color:var(--bad);margin-top:4px}.err{color:var(--bad);font-size:13px;margin:8px 0 0}
+form.f{display:grid;gap:8px}form.f.two{grid-template-columns:repeat(2,minmax(0,1fr))}.full{grid-column:1/-1}
+.off{padding:10px 0;border-bottom:1px dashed var(--line)}.off:last-child{border:0}
+.slip{border:2px solid var(--ok);text-align:center}.slip .num{font-size:22px;color:var(--ok)}
+.empty{text-align:center;color:var(--mute);padding:22px 10px}
+details{margin-top:14px;font-size:13px;color:var(--mute)}details td{padding:2px 10px 2px 0}
+.log{font-size:13px;padding:8px 0;border-bottom:1px dashed var(--line)}.log:last-child{border:0}
+body.login{min-height:100vh;background:repeating-linear-gradient(45deg,transparent 0 18px,color-mix(in srgb,var(--accent) 7%,transparent) 18px 19px),radial-gradient(circle at 12% 8%,color-mix(in srgb,var(--accent) 38%,transparent),transparent 48%),radial-gradient(circle at 88% 92%,color-mix(in srgb,var(--accent) 28%,transparent),transparent 52%),linear-gradient(160deg,var(--bg),var(--okbg));background-attachment:fixed}
+body.login .card{box-shadow:0 12px 32px rgba(0,0,0,.14)}
+:root{--logo:url("data:image/jpeg;base64,PASTE_LOGO_DATA_HERE")}
+.logo{width:96px;height:96px;margin:0 auto 12px;border-radius:50%;background:var(--logo) center/cover no-repeat;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+body.login::before{content:"";position:fixed;inset:0;background:var(--logo) center/min(80vw,420px) no-repeat;opacity:.08;pointer-events:none}
+body.login .wrap{position:relative;z-index:1}
+body.admin .wrap{max-width:1200px}
+.adm{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.side{display:flex;gap:6px;overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px}
+.side .brand,.side .sec{display:none}
+.side button{background:none;border:0;font:inherit;color:var(--mute);padding:8px 12px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.side button.on{background:var(--accent);color:var(--bg);font-weight:600}
+.mt{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:12px}
+.two{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.sc{border-radius:10px;padding:14px;color:#fff}.sc .num{font-size:30px;line-height:1.1;display:block}.sc span{font-size:13px}
+.scroll{overflow-x:auto}.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);background:var(--bg);padding:8px 10px;white-space:nowrap}
+.tbl td{padding:10px;border-bottom:1px solid var(--line)}.tbl td.empty{padding:20px;text-align:center}
+@media(min-width:800px){.adm{grid-template-columns:230px minmax(0,1fr);align-items:start}.side{flex-direction:column;overflow:visible;position:sticky;top:12px;padding:14px}.side .brand{display:block;font:700 18px Georgia,serif;color:var(--accent);margin-bottom:6px}.side .sec{display:block;font-size:11px;letter-spacing:.08em;color:var(--mute);margin:12px 0 4px}.side button{text-align:left}.side .so{margin-top:14px;border:1px solid var(--line)}.two{grid-template-columns:1fr 1fr}}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:4px 0 8px}
+.brandrow{display:flex;align-items:center;gap:10px}.brandname{font:700 18px Georgia,"Iowan Old Style",serif}
+.mini{flex:none;width:40px;height:40px;border-radius:50%;background:var(--logo) center/cover no-repeat}
+.pill{display:inline-block;background:var(--okbg);color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.1em;padding:9px 16px;border-radius:999px}
+.hero{padding-top:28px}.hero h1{font-size:clamp(36px,9vw,56px);line-height:1.08;margin:20px 0 16px}
+.hero p{color:var(--mute);font-size:17px;line-height:1.65;max-width:580px;margin:0}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+button.cta{font:inherit;font-weight:600;font-size:16px;padding:14px 22px;border-radius:12px;cursor:pointer;border:2px solid var(--accent);background:var(--accent);color:var(--bg)}
+button.cta.ghost{background:transparent;color:var(--accent)}button.cta.sm{padding:12px 20px;font-size:15px}
+hr.sep{border:0;border-top:1px solid var(--line);margin:38px 0}
+.sec h2{font-size:30px;margin:0 0 10px}.sec>p{color:var(--mute);font-size:16px;line-height:1.65;margin:0}
+.cards{display:grid;gap:12px;margin-top:18px}@media(min-width:640px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cards .card{margin:0;padding:18px 20px;border-radius:16px}
+.cards h3{font:700 19px Georgia,"Iowan Old Style",serif;margin:0 0 6px}.cards p{margin:0;color:var(--mute);line-height:1.6}
+.cards .n{font:700 34px Georgia,serif;color:var(--accent);display:block;line-height:1.1;margin-bottom:6px}
+.steps{grid-template-columns:minmax(0,1fr)!important}
+.steps .card{display:flex;align-items:center;gap:16px}
+.dot{flex:none;width:48px;height:48px;border-radius:50%;background:var(--accent);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:18px}
+.land footer{text-align:center;padding:10px 0 20px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+  const O=[["Teacher","teacher","teach123"],["Registrar","registrar","reg123"],["Guidance","guidance","guid123"],["Library","library","lib123"],["Accounting","accounting","acct123"]];
+const KEY="cmdi.clearance.v4",ADMIN=["admin","admin123"];
+const mk=(id,name,course,pin)=>({id,name,course,pin,s:O.map(()=>0),r:O.map(()=>""),by:O.map(()=>""),at:O.map(()=>0)});
+function load(){try{const r=localStorage.getItem(KEY);if(r)return JSON.parse(r)}catch(e){}return null}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}}
+function seed(){const t=Date.now(),a=mk("2024-0001","Maria Santos","Grade 12 STEM","1234");a.s=a.s.map(()=>1);a.by=O.map(o=>o[0]+" Officer");a.at=O.map(()=>t);
+const b=mk("2024-0002","Juan Dela Cruz","Grade 11 ABM","1234");b.s[0]=1;b.s[1]=1;b.s[2]=1;b.s[3]=2;b.r[3]="Overdue book";b.by[0]="Teacher Officer";b.by[1]="Registrar Officer";b.by[2]="Guidance Officer";b.by[3]="Library Officer";b.at[0]=b.at[1]=b.at[2]=b.at[3]=t;
+return{students:[a,b,mk("2024-0003","Ana Reyes","Grade 12 HUMSS","1234")],log:[]}}
+let DB=load()||seed(),U=null,page="home",tab="a",rej=null,q="",msg="",f="all",dl=null;
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const L=["PENDING","CLEARED","REJECTED"],C=["s-wait","s-ok","s-bad"];
+const done=s=>s.s.every(x=>x==1),issue=s=>s.s.includes(2);
+const ov=s=>done(s)?[1,"CLEARED"]:issue(s)?[2,"WITH ISSUES"]:[0,"IN PROGRESS"];
+const stamp=(i,t)=>`<span class="stamp ${C[i]}">${t||L[i]}</span>`;
+const when=t=>{try{return new Date(t).toLocaleString([],{dateStyle:"medium",timeStyle:"short"})}catch(e){return""}};
+const cnt=s=>s.s.filter(x=>x==1).length;
+const bl=(s,k)=>{for(let j=0;j<k;j++)if(s.s[j]!=1)return j;return -1};
+const notes=s=>{const a=[],sj=s.subj||[];if(sj.length)a.push(["Teacher","You are lacking in these subjects: "+sj.join(", ")+". Please settle them with your teacher."]);O.forEach((d,k)=>{if(s.s[k]==2&&!(k==0&&sj.length))a.push([d[0],"Rejected: "+s.r[k]])});return a};
+
+function act(sid,k,v,note){
+if(!U||U.role!="staff"||U.k!==k)return false;
+const s=DB.students.find(x=>x.id==sid);if(!s)return false;
+if(v==2&&!note)return false;
+if(v!=0&&bl(s,k)>=0)return false;
+for(let j=k+1;j<O.length;j++)if(v!=1&&s.s[j]==1){s.s[j]=0;s.by[j]="";s.at[j]=0}
+if(k==0&&v!=2)s.subj=[];
+s.s[k]=v;s.r[k]=v==2?note:"";s.by[k]=U.name;s.at[k]=Date.now();
+DB.log.unshift({t:Date.now(),o:O[k][0],who:U.name,sn:s.name,a:["Reset","Approved","Rejected"][v],note:note||""});DB.log=DB.log.slice(0,60);save();return true}
+
+function login(){return `<div class="card" style="margin-top:4vh"><button class="b" type="button" data-go="home" style="margin-bottom:10px">← Back</button><div class="logo" role="img" aria-label="CARD-MRI Development Institute logo"></div><h1 style="text-align:center">CMDI San Pablo City Campus</h1><p class="mute" style="text-align:center">Web-based digital student clearance</p>
+<form class="f" id="lg"><input name="u" placeholder="Student ID or username" autocomplete="username" aria-label="Username"><input name="p" type="password" placeholder="Password or PIN" autocomplete="current-password" aria-label="Password"><button class="b p" type="submit">Sign in</button>${msg?`<p class="err">${msg}</p>`:""}</form>
+<details><summary>Demo accounts</summary><table><tr><td>Student</td><td>2024-0001 / 1234</td></tr><tr><td>Admin</td><td>admin / admin123</td></tr>${O.map(o=>`<tr><td>${o[0]}</td><td>${o[1]} / ${o[2]}</td></tr>`).join("")}</table></details></div>`}
+
+function home(){
+const P=[["Long queues","Peak season means waiting in line and repeated trips between offices."],["Stalled process","If one staff member is away from their desk, the whole clearance stops."],["Lost forms","Paper can be lost or damaged, which can delay graduation or documents."],["No tracking","Students can’t easily see which office is holding up their clearance."]];
+const G=[["Reduce paperwork","No printing, manual signing, or physical storage of clearance sheets."],["Save time","Students and staff save hours during enrollment and graduation seasons."],["Real-time tracking","A live dashboard shows which office approved and which still has pending items."],["Enhance data security","Records and statuses are kept in a digital database, not on loose forms."],["Optimize efficiency","A heavy manual workflow becomes a streamlined online process."]];
+const D=["Subject requirements and lacking subjects","Student records","Guidance clearance","Borrowed books and fines","Academic requirements","Fees and balances","Equipment and laboratory items"];
+return `<div class="land"><div class="topbar"><div class="brandrow"><span class="mini"></span><span class="brandname">CMDI San Pablo</span></div><button class="cta sm" data-go="login">Sign in</button></div>
+<section class="hero"><span class="pill">CMDI SAN PABLO CITY CAMPUS</span><h1>Clearance without the walking.</h1><p>A web-based digital student clearance system. Check every office’s sign-off from your phone, with no paper forms and no office-to-office queues.</p><div class="btns"><button class="cta" data-go="login">Open the system</button><button class="cta ghost" data-sc="how">How it works</button></div></section>
+<hr class="sep">
+<section class="sec"><h2>Why we built it</h2><p>Today, students collect paper signatures by walking from the Library to the Registrar and other academic units.</p><div class="cards">${P.map(x=>`<div class="card"><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div></section>
+<hr class="sep">
+<section class="sec"><h2>What the system is for</h2><p>Five goals behind the study.</p><div class="cards">${G.map((x,i)=>`<div class="card"><span class="n">${i+1}</span><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div></section>
+<hr class="sep">
+<section class="sec" id="how"><h2>How it works</h2><p>Offices clear a student in order. Each office unlocks only after the one before it approves, so no step can be skipped.</p><div class="cards steps">${O.map((o,i)=>`<div class="card"><span class="dot">${i+1}</span><div><h3 style="font:500 17px system-ui,sans-serif;margin:0">${o[0]}</h3><p>${D[i]}</p></div></div>`).join("")}</div>
+<div class="btns" style="justify-content:center;margin-top:28px"><button class="cta" data-go="login">Open the system</button></div></section>
+<hr class="sep"><footer class="mute">© CMDI San Pablo City Campus · Digital Student Clearance</footer></div>`}
+
+function head(sub){return `<div class="top"><div><h1>Student Clearance</h1><div class="mute">${esc(U.name)} · ${sub}</div></div><button class="b" id="out">Sign out</button></div>`}
+
+function student(){const s=DB.students.find(x=>x.id==U.id),o=ov(s),fin=Math.max(...s.at);
+const nt=notes(s);
+return head("Student")+(nt.length?`<div class="card" style="border-color:var(--bad)"><b>🔔 Notifications (${nt.length})</b>${nt.map(x=>`<div class="off"><b>${esc(x[0])}</b><div class="rem">${esc(x[1])}</div></div>`).join("")}</div>`:"")+`<div class="card"><div class="row"><div><b>${esc(s.name)}</b><div class="mute">${esc(s.id)} · ${esc(s.course)}</div></div>${stamp(o[0],o[1])}</div>
+<div class="brow" style="margin:12px 0 0"><div><span>Progress</span><span>${cnt(s)} of ${O.length} offices</span></div><div class="bar"><i style="width:${Math.round(cnt(s)*100/O.length)}%"></i></div></div></div>
+${done(s)?`<div class="card slip"><div class="num">Clearance complete</div><p class="mute">Reference no. CMDI-SPC-${esc(s.id)}<br>Completed ${when(fin)}</p></div>`:""}
+<h2>Office status</h2><p class="mute">Offices clear in order, from top to bottom.</p><div class="card">${O.map((d,k)=>`<div class="off"><div class="row"><span>${d[0]}</span>${stamp(s.s[k])}</div>${s.s[k]==1?`<div class="mute">Approved by ${esc(s.by[k])} · ${when(s.at[k])}</div>`:""}${s.s[k]==2?`<div class="rem">Settle this: ${esc(s.r[k])}</div><div class="mute">Rejected by ${esc(s.by[k])} · ${when(s.at[k])}</div>`:""}${s.s[k]==0?`<div class="mute">${bl(s,k)>=0?`Locked until ${O[bl(s,k)][0]} clears you.`:`Waiting for ${d[0]} to review.`}</div>`:""}</div>`).join("")}</div>`}
+
+function staff(){const k=U.k,all=DB.students,n=v=>all.filter(s=>s.s[k]==v).length;
+const list=all.filter(s=>(s.name+s.id).toLowerCase().includes(q.toLowerCase())&&(f=="all"||s.s[k]==+f));
+return head(O[k][0]+" office")+`<div class="grid four" style="margin-bottom:14px">${[["Pending",n(0)],["Cleared",n(1)],["Rejected",n(2)],["Students",all.length]].map(x=>`<div class="card stat"><span class="num">${x[1]}</span><span class="mute">${x[0]}</span></div>`).join("")}</div>
+<div class="grid" style="margin-bottom:12px"><input id="q" type="search" placeholder="Search name or ID" value="${esc(q)}" aria-label="Search"><select id="fl" aria-label="Filter"><option value="all">All</option>${[0,1,2].map(v=>`<option value="${v}"${f==v?" selected":""}>${L[v][0]+L[v].slice(1).toLowerCase()}</option>`).join("")}</select></div>
+${list.length?list.map(s=>`<div class="card"><div class="row"><div><b>${esc(s.name)}</b><div class="mute">${esc(s.id)} · ${esc(s.course)} · ${cnt(s)} of ${O.length} cleared</div></div>${stamp(s.s[k])}</div>${s.r[k]?`<div class="rem">${esc(s.r[k])}</div>`:""}
+${rej==s.id?`<div class="act"><input id="rs" placeholder="Reason the student must settle" aria-label="Reason"><button class="b no" data-rj="${s.id}">Confirm reject</button><button class="b" data-cx="1">Cancel</button></div>${msg?`<p class="err">${msg}</p>`:""}`:`${bl(s,k)>=0&&s.s[k]==0?`<div class="mute" style="margin-top:8px">Locked until ${O[bl(s,k)][0]} clears this student.</div>`:`<div class="act"><button class="b ok" data-a="1" data-s="${s.id}">Approve</button><button class="b no" data-r="${s.id}">Reject</button><button class="b" data-a="0" data-s="${s.id}">Reset</button></div>`}`}${k==0?`<div class="act"><input id="sb-${esc(s.id)}" placeholder="Lacking subjects, e.g. Math, English" value="${esc((s.subj||[]).join(", "))}" aria-label="Lacking subjects"><button class="b no" data-sb="${esc(s.id)}">Notify student</button></div>`:""}</div>`).join(""):`<div class="card empty">No students match.</div>`}`}
+function admin(){const S=DB.students,t=S.length,T=tab=="a"?"d":tab;
+const tot=t*O.length,ap=S.reduce((n,s)=>n+cnt(s),0),rj=S.reduce((n,s)=>n+s.s.filter(x=>x==2).length,0),pd=tot-ap-rj,cl=S.filter(done).length,nl=S.flatMap(s=>notes(s).map(n=>[s.name,n[0],n[1]]));
+const items=[["d","Dashboard","MAIN"],["o","Offices","MANAGEMENT"],["s","Students"],["r","Clearance Requests"],["n","Notifications","COMMUNICATION"],["l","Audit Logs","REPORTS & LOGS"]];
+const side=`<aside class="side"><div class="brand">CMDI San Pablo</div>${items.map(i=>`${i[2]?`<div class="sec">${i[2]}</div>`:""}<button data-t="${i[0]}" class="${T==i[0]?"on":""}">${i[1]}</button>`).join("")}<button id="out" class="so">Sign out</button></aside>`;
+const tbl=(h,rows,e)=>`<div class="scroll"><table class="tbl"><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${rows.length?rows.join(""):`<tr><td colspan="${h.length}" class="empty">${e}</td></tr>`}</table></div>`;
+const pill=a=>`<span class="stamp ${a=="Approved"?"s-ok":a=="Rejected"?"s-bad":"s-wait"}">${a.toUpperCase()}</span>`;
+const logRows=n=>DB.log.slice(0,n).map(l=>`<tr><td>${esc(l.who)}</td><td>${esc(l.o)}: ${esc(l.a)}</td><td>${esc(l.sn)}${l.note?` (${esc(l.note)})`:""}</td><td>${when(l.t)}</td></tr>`);
+const actRows=DB.log.slice(0,6).map(l=>`<tr><td>${esc(l.sn)}</td><td>${esc(l.o)}</td><td>${pill(l.a)}</td><td>${when(l.t)}</td></tr>`);
+const offRows=O.map((d,k)=>{const a=S.filter(s=>s.s[k]==1).length,r=S.filter(s=>s.s[k]==2).length;return `<tr><td>${d[0]}</td><td>${d[1]}</td><td>${a}</td><td>${t-a-r}</td><td>${r}</td></tr>`});
+const offH=["Office","Username","Approved","Pending","Rejected"],logH=["User","Action","Student","Date"];
+const cards=[["Total students",t,"#4f46e5"],["Fully cleared",cl,"#2ea043"],["Offices",O.length,"#0e8fa8"],["Total requests",tot,"#b97800"],["Pending",pd,"#d6333f"],["Approved",ap,"#2ea043"],["Rejected",rj,"#5b6770"],["Notifications",nl.length,"#4f46e5"]].map(x=>`<div class="sc" style="background:${x[2]}"><span class="num">${x[1]}</span><span>${x[0]}</span></div>`).join("");
+const h2='<h2 style="margin-top:0">';
+let title="Dashboard",body;
+if(T=="o"){title="Offices";body=`<div class="card">${tbl(offH,offRows,"")}</div>`}
+else if(T=="s"){title="Students";body=`<form class="f two card" id="ad"><b class="full">Enroll a student</b><input class="full" name="n" placeholder="Maria Santos" aria-label="Full name"><input name="i" placeholder="2024-0004" aria-label="Student ID"><input name="p" placeholder="PIN" aria-label="PIN"><input class="full" name="c" placeholder="Grade 12 STEM" aria-label="Grade and strand">${msg?`<p class="err full">${msg}</p>`:""}<button class="b p full" type="submit">Save student</button></form>
+<div class="card">${tbl(["Name","ID","Course","Progress","Status",""],S.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.id)}</td><td>${esc(s.course)}</td><td>${cnt(s)} of ${O.length}</td><td>${stamp(ov(s)[0],ov(s)[1])}</td><td><button class="b no" data-del="${esc(s.id)}">${dl==s.id?"Tap again to delete":"Delete"}</button></td></tr>`),"No students yet.")}</div><p class="mute">Administrators can enroll and delete students but can’t approve or reject any office.</p>`}
+else if(T=="r"){title="Clearance Requests";body=`<div class="card">${tbl(["Student",...O.map(o=>o[0]),"Overall"],S.map(s=>`<tr><td>${esc(s.name)}</td>${s.s.map(x=>`<td><span class="stamp ${C[x]}">${["–","✓","✕"][x]}</span></td>`).join("")}<td>${stamp(ov(s)[0],ov(s)[1])}</td></tr>`),"No students yet.")}</div>`}
+else if(T=="n"){title="Notifications";body=`<div class="card">${tbl(["Student","From","Message"],nl.map(n=>`<tr><td>${esc(n[0])}</td><td>${esc(n[1])}</td><td>${esc(n[2])}</td></tr>`),"No notifications right now.")}</div>`}
+else if(T=="l"){title="Audit Logs";body=`<div class="card"><div style="margin-bottom:10px"><button class="b no" data-cl="1">${dl=="logs"?"Tap again to clear all":"Clear audit logs"}</button></div>${tbl(logH,logRows(60),"No activity yet.")}</div>`}
+else body=`<div class="grid four">${cards}</div><div class="two" style="margin:14px 0"><div class="card">${h2}Recent clearance activity</h2>${tbl(["Student","Office","Status","Updated"],actRows,"No decisions yet.")}</div><div class="card">${h2}Offices</h2>${tbl(offH,offRows,"")}</div></div><div class="card">${h2}Audit logs</h2>${tbl(logH,logRows(5),"No activity yet.")}</div>`;
+return `<div class="adm">${side}<div><div class="mt"><h1>${title}</h1><span class="mute">${esc(U.name)}</span></div>${body}</div></div>`}
+
+function draw(){document.body.classList.toggle("login",!U&&page=="login");document.body.classList.toggle("admin",!!U&&U.role=="admin");document.getElementById("app").innerHTML=!U?(page=="home"?home():login()):U.role=="student"?student():U.role=="staff"?staff():admin()}
+
+document.addEventListener("submit",e=>{e.preventDefault();const d=new FormData(e.target);msg="";
+if(e.target.id=="lg"){const u=d.get("u").trim().toLowerCase(),p=d.get("p");
+const s=DB.students.find(x=>x.id.toLowerCase()==u),k=O.findIndex(o=>o[1]==u);
+if(s&&s.pin==p)U={role:"student",id:s.id,name:s.name};
+else if(k>=0&&O[k][2]==p)U={role:"staff",k,name:O[k][0]+" Officer"};
+else if(u==ADMIN[0]&&p==ADMIN[1])U={role:"admin",name:"Administrator"};
+else msg="Wrong username or password.";}
+if(e.target.id=="ad"&&U&&U.role=="admin"){const n=d.get("n").trim(),i=d.get("i").trim(),p=d.get("p").trim();
+if(!n||!i||!p)msg="Enter a name, ID, and PIN.";
+else if(DB.students.some(x=>x.id.toLowerCase()==i.toLowerCase()))msg="That student ID already exists.";
+else{DB.students.push(mk(i,n,d.get("c").trim(),p));save()}}
+draw()});
+document.addEventListener("click",e=>{const t=e.target.closest("button");if(!t)return;const D=t.dataset;
+if(t.id=="out"){U=null;page="home";tab="a";rej=null;msg="";q="";f="all"}
+else if(D.go){page=D.go;msg="";window.scrollTo(0,0)}
+else if(D.sc){const el=document.getElementById(D.sc);if(el)el.scrollIntoView({behavior:"smooth"});return}
+else if(D.t){tab=D.t;dl=null}
+else if(D.a!==undefined)act(D.s,U.k,+D.a,"");
+else if(D.r){rej=D.r;msg=""}
+else if(D.cx){rej=null;msg=""}
+else if(D.del){if(!U||U.role!="admin")return;if(dl==D.del){const s=DB.students.find(x=>x.id==D.del);DB.students=DB.students.filter(x=>x.id!=D.del);if(s)DB.log.unshift({t:Date.now(),o:"Administrator",who:U.name,sn:s.name,a:"Deleted",note:""});save();dl=null}else dl=D.del}
+else if(D.cl){if(!U||U.role!="admin")return;if(dl=="logs"){DB.log=[];save();dl=null}else dl="logs"}
+else if(D.sb){if(!U||U.role!="staff"||U.k!==0)return;const i=document.getElementById("sb-"+D.sb),list=i?i.value.split(",").map(x=>x.trim()).filter(Boolean):[],s=DB.students.find(x=>x.id==D.sb);if(!s)return;if(list.length){s.subj=list;act(D.sb,0,2,"Lacking subjects: "+list.join(", "))}else{s.subj=[];if(s.s[0]==2)act(D.sb,0,0,"");save()}}
+else if(D.rj){const v=document.getElementById("rs").value.trim();if(act(D.rj,U.k,2,v)){rej=null;msg=""}else msg="Enter a reason before rejecting."}
+else return;draw()});
+document.addEventListener("input",e=>{if(e.target.id=="q"){q=e.target.value;const p=e.target.selectionStart;draw();const n=document.getElementById("q");n.focus();n.setSelectionRange(p,p)}});
+document.addEventListener("change",e=>{if(e.target.id=="fl"){f=e.target.value;draw()}});
+draw();
+</script>
+</body>
+</html>
